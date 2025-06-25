@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   sig_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/06/03 01:00:48 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:01:34 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+void	sig_set_null(int sig)
 {
-	static char	**env = NULL;
-
-	return (&env);
+	int devnull = open("/dev/null", O_RDONLY);
+	dup2(devnull, STDIN_FILENO);
+	close(devnull);
+	*sig_status() = 2;
 }
 
-t_env	**get_t_env(void)
+void	signal_prompt(int sig)
 {
-	static t_env	*env;
+	(void)sig;
 
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }

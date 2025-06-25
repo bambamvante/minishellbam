@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/16 01:15:16 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 02:10:40 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef EXIT_H
+# define EXIT_H
 
-char	***env(void)
-{
-	static char	**env = NULL;
+# include <stdbool.h>
+# include <stdlib.h>
 
-	return (&env);
-}
+int		*get_code(void);
+int		*std_in(void);
+bool	is_exit(int num);
 
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
-}
+#endif

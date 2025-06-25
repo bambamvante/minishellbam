@@ -1,6 +1,6 @@
 #------------[MANDATORY]
 NAME			=	minishell
-CC				=	gcc
+CC				=	cc
 HEADER			=	-I ./include -I $(LIBFT_DIR)/include
 RM				=	rm -f
 RMDIR			=	rm -rf
@@ -9,7 +9,7 @@ MKDIR			=	mkdir -p
 #------------[FLAGS]
 CFLAGS			= 	$(W_FLAGS)
 VFLAGS			=	--track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all
-DEBUG_FLAGS		= 	-g3 -fsanitize=address
+DEBUG_FLAGS		= 	-g3
 RL_FLAGS		= 	-lreadline
 W_FLAGS			= 	#-Wall -Wextra -Werror
 
@@ -22,16 +22,17 @@ LIBFT_DIR		=	include/KML
 LIBFT_FILE		=	$(LIBFT_DIR)/kml.a
 
 #------------[ROOT_FILES]
-FILE			=	$(MAIN) $(PARSER) $(EXIT) $(UTILS)
+FILE			=	$(MAIN) $(PARSER) $(PROCESS) $(EXIT) $(UTILS) $(ENV) $(BUILTIN) $(SIGNAL)
 
 #------------[SUBFILES]
+
 MAIN			=	$(addprefix $(MAIN_PATH)/, $(addsuffix .c, $(MAIN_FILE)))
 MAIN_PATH		=	minishell
 MAIN_FILE		=	main
 
 PROCESS			=	$(addprefix $(PROCESS_PATH)/, $(addsuffix .c, $(PROCESS_FILE)))
 PROCESS_PATH	=	process
-PROCESS_FILE	=	clear
+PROCESS_FILE	=	builtin_control clear debug get_t heredoc process redirect utils exec/access exec/clear exec/exec 
 
 EXIT			=	$(addprefix $(EXIT_PATH)/, $(addsuffix .c, $(EXIT_FILE)))
 EXIT_PATH		=	exit
@@ -39,11 +40,23 @@ EXIT_FILE		=	exit get_t
 
 PARSER			=	$(addprefix $(PARSER_PATH)/, $(addsuffix .c, $(PARSER_FILE)))
 PARSER_PATH		=	parser
-PARSER_FILE		=	lexer parser syntax utils error debug token redirect expand pipe redirect_utils
+PARSER_FILE		=	lexer parser syntax utils error expand redirect cmd redirect2
 
-UTILS			=	$(addprefix $(UTILS_PATH)/, $(addsuffix .c, $(UTILS_FILE)))
-UTILS_PATH		=	utils
-UTILS_FILE		=	
+EXIT			=	$(addprefix $(EXIT_PATH)/, $(addsuffix .c, $(EXIT_FILE)))
+EXIT_PATH		=	exit
+EXIT_FILE		=	exit get_t
+
+ENV				=	$(addprefix $(ENV_PATH)/, $(addsuffix .c, $(ENV_FILE)))
+ENV_PATH		=	env
+ENV_FILE		=	add_env clear_env del_env env_new get_t get_value_env init_env print_env set_env tool
+
+BUILTIN			=	$(addprefix $(BUILTIN_PATH)/, $(addsuffix .c, $(BUILTIN_FILE)))
+BUILTIN_PATH	=	builtin
+BUILTIN_FILE	=	builtin ft_chdir ft_echo ft_env ft_exit ft_export ft_pwd ft_unset
+
+SIGNAL			=	$(addprefix $(SIGNAL_PATH)/, $(addsuffix .c, $(SIGNAL_FILE)))
+SIGNAL_PATH		=	signal
+SIGNAL_FILE		=	get_t sig_heredoc sig
 
 #------------[OBJECT_AND_SOURCE]
 SRC				=	$(addprefix $(SRCS_PATH)/, $(FILE))

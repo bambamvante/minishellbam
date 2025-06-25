@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/05/29 14:36:55 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:07:22 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+int	len_env(void)
 {
-	static char	**env = NULL;
+	t_env	*env;
+	int		i;
 
-	return (&env);
+	env = *get_t_env();
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
 }
 
-t_env	**get_t_env(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	static t_env	*env;
+	int	i;
 
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 12:00:11 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/24 22:36:03 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:53:32 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,4 @@ bool	is_quote(char c)
 bool	is_operator(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
-}
-
-int	is_redirect(char c)
-{
-	return (c == '<' || c == '>');
-}
-
-int	is_all_space(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '\t')
-			return (0);
-		i++;
-	}
-	return (1);
 }

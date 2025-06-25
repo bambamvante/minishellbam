@@ -1,6 +1,12 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"linked_list.h": "c"
+		"linked_list.h": "c",
+		"process.h": "c",
+		"exit.h": "c",
+		"kml.h": "c",
+		"print.h": "c",
+		"builtin.h": "c",
+		"env.h": "c"
 	}
 }

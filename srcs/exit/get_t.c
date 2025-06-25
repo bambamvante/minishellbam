@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:25:27 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/24 16:35:43 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/26 02:41:11 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,4 @@ int	*std_in(void)
 		fd = dup(0);
 	return (&fd);
 }
-
-t_process	**get_t_process(void)
-{
-	static t_process	*process = NULL;
-
-	return (&process);
-}
+ 

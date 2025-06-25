@@ -1,34 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   del_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/15 04:56:17 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:06:35 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+void	del(t_env *d)
 {
-	static char	**env = NULL;
-
-	return (&env);
+	free(d->key);
+	if (d->value)
+		free(d->value);
+	free(d);
 }
 
-t_env	**get_t_env(void)
+void	del_env(char *key)
 {
-	static t_env	*env;
+	t_env	*env;
+	t_env	*temp;
 
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	env = *get_t_env();
+	if (!search(key))
+		return ;
+	temp = NULL;
+	while (env)
+	{
+		if (!ft_strncmp(env->key, key, ft_strlen(key) + 1))
+		{
+			if (!temp)
+			{
+				*get_t_env() = env->next;
+				del(env);
+			}
+			else
+			{
+				temp->next = env->next;
+				del(env);
+			}
+		}
+		temp = env;
+		env = env->next;
+	}
 }

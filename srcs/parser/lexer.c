@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:06:42 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/25 01:01:18 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/26 03:46:39 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,46 +30,63 @@ so type will be only 2 type : CMD and PIPE
 
 */
 
-t_token_type	check_type(char *str)
+char	**split_by_pipe(char *line)
 {
-	if (str[0] == '<' && str[1] == '\0')
-		return (REDIRECT_IN);
-	if (strcmp(str, "<<") == 0)
-		return (REDIRECT_HEREDOC);
-	if (str[0] == '>' && str[1] == '\0')
-		return (REDIRECT_OUT);
-	if (strcmp(str, ">>") == 0)
-		return (REDIRECT_APPEND);
-	return (CMD);
+	return (ft_split(line, '|'));
 }
 
-bool	lexer(t_shell *shell, t_token **token, char *line)
+
+char	**split_cmd_and_redirect(char *split, t_redirect **redir_list,
+	char **tmp)
 {
+	char	**token;
+	char	**cmd;
+	int		cmd_count;
 	int		i;
 	int		j;
-	char	**tmp;
-	char	**split;
 
 	i = 0;
 	j = 0;
-	tmp = split_by_spaces(line);
+	cmd = NULL;
+	cmd_count = 0;
+	tmp = ft_split(split, ' ');
 	if (!tmp)
-		return (false);
-	while (tmp[i])
-	{
-		split = split_pipe_word(tmp[i]);
-		j = 0;
-		while (split[j])
-		{
-			add_token(token, check_type(split[j]), ft_strdup(split[j]), 0);
-			j++;
-		}
-		free_split(split);
-		i++;
-	}
+		return (NULL);
+	token = split_token_redirect(tmp);
 	free_split(tmp);
-	split_redirect_word(token);
-	return (true);
+	if (!token)
+		return (NULL);
+	parse_redirect(token, redir_list);
+	cmd = parse_cmd(token, i, j, cmd_count);
+	free_split(token);
+	return (cmd);
 }
 
-// print_token(*token);
+bool	lexer(char *line, int i)
+{
+	char		*no_whitespaces;
+	char		**split;
+	t_process	*proc;
+	t_process	**proc_list;
+	char		**tmp;
+
+	proc_list = get_t_process();
+	split = split_by_pipe(line);
+	if (!split)
+		return (false);
+	while (split[i])
+	{
+		proc = init_process();
+		if (!proc || !(proc->cmd = split_cmd_and_redirect(split[i],
+					&proc->redirect, tmp)))
+		{
+			free(proc);
+			free_split(split);
+			return (false);
+		}
+		add_process(proc_list, proc);
+		i++;
+	}
+	free_split(split);
+	return (true);
+}

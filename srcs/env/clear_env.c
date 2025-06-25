@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   clear_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/05/04 23:15:42 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:06:39 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+void	clear_env(void)
 {
-	static char	**env = NULL;
+	t_env	*envp;
+	t_env	*temp;
 
-	return (&env);
-}
-
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	envp = *get_t_env();
+	while (envp)
+	{
+		temp = envp;
+		envp = envp->next;
+		del(temp);
+	}
+	free_split(env()[0]);
 }

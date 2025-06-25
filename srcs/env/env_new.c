@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   env_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/15 02:40:44 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:06:45 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+t_env	*new_env(char *key, char *value)
 {
-	static char	**env = NULL;
+	t_env	*env;
 
-	return (&env);
-}
-
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	if (!key)
+		return (NULL);
+	env = malloc(sizeof(t_env));
+	if (!env)
+		return (NULL);
+	env->value = NULL;
+	if (value)
+		env->value = ft_strdup(value);
+	env->key = ft_strdup(key);
+	env->index = -1;
+	env->next = NULL;
+	return (env);
 }

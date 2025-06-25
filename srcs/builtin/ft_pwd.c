@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/15 01:55:23 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 02:53:35 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+void	ft_pwd(char **arg)
 {
-	static char	**env = NULL;
+	char	thispath[1024];
 
-	return (&env);
-}
-
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	if (!getcwd(thispath, sizeof(thispath)))
+		exit(1);
+	pnf("%s\n", thispath);
+	exit(0);
 }

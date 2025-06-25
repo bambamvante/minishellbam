@@ -3,32 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_t.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/11 04:14:00 by knakto            #+#    #+#             */
+/*   Updated: 2025/04/11 04:27:08 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "print.h"
 
-char	***env(void)
+int	*get_fd(void)
 {
-	static char	**env = NULL;
+	static int	fd = 1;
 
-	return (&env);
-}
-
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	return (&fd);
 }

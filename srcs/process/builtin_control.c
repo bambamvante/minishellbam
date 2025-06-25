@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   builtin_control.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/29 18:58:29 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 02:06:19 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+int	check_builtin(t_process *proc)
 {
-	static char	**env = NULL;
-
-	return (&env);
-}
-
-t_env	**get_t_env(void)
-{
-	static t_env	*env;
-
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	if (!ft_strncmp(proc->cmd[0], "cd", 3) \
+|| (!ft_strncmp(proc->cmd[0], "export", 7) && proc->cmd[1]) \
+|| !ft_strncmp(proc->cmd[0], "unset", 6) \
+|| !ft_strncmp(proc->cmd[0], "exit", 5))
+	{
+		builtin(proc);
+		return (1);
+	}
+	return (0);
 }

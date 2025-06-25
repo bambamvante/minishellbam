@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
+/*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 19:01:06 by knakto            #+#    #+#             */
-/*   Updated: 2025/04/04 19:06:16 by knakto           ###   ########.fr       */
+/*   Updated: 2025/06/26 03:04:34 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ int		ft_putstr_fd(char *s, int fd);
 int		ft_putendl_fd(char *s, int fd);
 int		ft_putchar_fd(char c, int fd);
 int		pnf(const char *str, ...);
+int		pnf_fd(int fd, const char *str, ...);
+int		*get_fd(void);
 
 #endif

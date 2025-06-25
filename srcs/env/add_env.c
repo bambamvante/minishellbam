@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_t.c                                            :+:      :+:    :+:   */
+/*   add_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 02:23:32 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:49 by arphueng         ###   ########.fr       */
+/*   Created: 2025/04/15 04:51:22 by knakto            #+#    #+#             */
+/*   Updated: 2025/06/26 03:06:30 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	***env(void)
+int	search(char *key)
 {
-	static char	**env = NULL;
+	t_env	*env;
 
-	return (&env);
+	env = *get_t_env();
+	while (env)
+	{
+		if (!ft_strncmp(env->key, key, ft_strlen(key) + 1))
+			return (1);
+		env = env->next;
+	}
+	return (0);
 }
 
-t_env	**get_t_env(void)
+void	add_env(char *key, char *value)
 {
-	static t_env	*env;
+	t_env	*env;
 
-	return (&env);
-}
-
-int	*minishell_pid(void)
-{
-	static int	pid;
-
-	return (&pid);
+	env = *get_t_env();
+	if (search(key))
+	{
+		set_value_env(key, value);
+		return ;
+	}
+	while (env->next)
+		env = env->next;
+	env->next = new_env(key, value);
+	set_env();
 }

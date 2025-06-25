@@ -38,7 +38,7 @@ MEMORY_FILE		= ft_bzero.c ft_memset.c ft_memcpy.c ft_memchr.c ft_memcmp.c ft_cal
 #------------[PRINT]
 PRINT			= $(addprefix $(PRINT_PATH)/, $(PRINT_FILE))
 PRINT_PATH		= print
-PRINT_FILE		= ft_putstr_fd.c ft_putnbr_fd.c ft_putchar_fd.c ft_putendl_fd.c ft_printf.c
+PRINT_FILE		= ft_putstr_fd.c ft_putnbr_fd.c ft_putchar_fd.c ft_putendl_fd.c ft_printf.c get_t.c ft_printf_fd.c
 #------------[LINKED_LIST]
 LINKED_LIST			= $(addprefix $(LINKED_LIST_PATH)/, $(LINKED_LIST_FILE))
 LINKED_LIST_PATH	= linked_list
