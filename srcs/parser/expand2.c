@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_control.c                                  :+:      :+:    :+:   */
+/*   expand2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 18:58:29 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/27 19:50:46 by arphueng         ###   ########.fr       */
+/*   Created: 2025/06/27 16:58:12 by arphueng          #+#    #+#             */
+/*   Updated: 2025/06/28 01:15:12 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_builtin(t_process *proc)
+t_quote_type	check_quote_type(const char *str)
 {
-	if (!proc || !proc->cmd || !proc->cmd[0])
-		return (0);
-	if (!ft_strncmp(proc->cmd[0], "cd", 3) \
-|| (!ft_strncmp(proc->cmd[0], "export", 7) && proc->cmd[1]) \
-|| !ft_strncmp(proc->cmd[0], "unset", 6) \
-|| !ft_strncmp(proc->cmd[0], "exit", 5))
+	int	len;
+
+	if (!str)
+		return (NO_QUOTE);
+	len = ft_strlen(str);
+	if (len >= 2)
 	{
-		builtin(proc);
-		return (1);
+		if (str[0] == '\'' && str[len - 1] == '\'')
+			return (SINGLE_QUOTE);
+		if (str[0] == '\"' && str[len - 1] == '\"')
+			return (DOUBLE_QUOTE);
 	}
-	return (0);
+	return (NO_QUOTE);
 }
+
+char	*ft_strjoin_and_free(char *s1, char *s2)
+{
+	char	*res;
+
+	if (!s1 && !s2)
+		return (NULL);
+	res = ft_strjoin(s1, s2);
+	free(s1);
+	return (res);
+}
+

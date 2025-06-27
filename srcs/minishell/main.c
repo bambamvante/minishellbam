@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:07:19 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/26 03:42:18 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:10:45 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,19 @@ void	minishell(t_shell *shell)
 		shell->tmp = readline("minishell$ ");
 		if (!shell->tmp)
 			break ;
-		shell->line = ft_strtrim(shell->tmp, "\n");
+		shell->line = ft_strtrim(shell->tmp, " ");
 		free(shell->tmp);
+		shell->tmp = NULL;
+		if (!shell->line)
+			break ;
 		if (*shell->line)
 		{
 			add_history(shell->line);
 			parser(shell);
-				// process();
+			process();
+			clear_t_process();
 		}
-		clear_t_process();
+		free(shell->line);
 	}
 	close(*std_in());
 	rl_clear_history();
@@ -45,12 +49,10 @@ int	main(int ac, char **av, char **envp)
 	t_shell		shell;
 
 	init_env(envp);
-	//signal(SIGQUIT, SIG_IGN);
-	//signal(SIGINT, signal_reset_prompt);
+	// signal(SIGQUIT, SIG_IGN);
+	// signal(SIGINT, signal_reset_prompt);
 	minishell(&shell);
-	// setup_proc();
-	// process();
-	// clear_t_process();
-	// clear_env();
+	clear_t_process();
+	clear_env();
 	return (*get_code());
 }

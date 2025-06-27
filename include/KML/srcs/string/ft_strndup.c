@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_control.c                                  :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 18:58:29 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/27 19:50:46 by arphueng         ###   ########.fr       */
+/*   Created: 2025/06/26 17:40:39 by arphueng          #+#    #+#             */
+/*   Updated: 2025/06/26 17:42:15 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "string.h"
 
-int	check_builtin(t_process *proc)
+char	*ft_strndup(const char *s, int n)
 {
-	if (!proc || !proc->cmd || !proc->cmd[0])
-		return (0);
-	if (!ft_strncmp(proc->cmd[0], "cd", 3) \
-|| (!ft_strncmp(proc->cmd[0], "export", 7) && proc->cmd[1]) \
-|| !ft_strncmp(proc->cmd[0], "unset", 6) \
-|| !ft_strncmp(proc->cmd[0], "exit", 5))
+	char	*dup;
+	int		i;
+
+	i = 0;
+	dup = malloc(n + 1);
+	if (!dup)
+		return (NULL);
+	while (i < n)
 	{
-		builtin(proc);
-		return (1);
+		dup[i] = s[i];
+		i++;
 	}
-	return (0);
+	dup[n] = '\0';
+	return (dup);
 }

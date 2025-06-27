@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 19:06:28 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/08 22:38:41 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:42:45 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t len);
+char	*ft_strndup(const char *s, int n);
 
 #endif

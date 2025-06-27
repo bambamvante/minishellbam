@@ -22,7 +22,7 @@ STRING			= $(addprefix $(STRING_PATH)/, $(STRING_FILE))
 STRING_PATH		= string
 STRING_FILE		= ft_itoa.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_substr.c ft_strlcpy.c ft_strlcat.c \
 				  ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strjoin.c ft_strtrim.c ft_striteri.c \
-				  fsplit.c fjoin.c 
+				  fsplit.c fjoin.c ft_strndup.c
 		#------------[GET_NEXT_LINE]
 		GET_NEXT_LINE			= $(addprefix $(GET_NEXT_LINE_PATH)/, $(GET_NEXT_LINE_FILE))
 		GET_NEXT_LINE_PATH		= $(STRING_PATH)/get_next_line
