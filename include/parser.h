@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:37:07 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 03:30:19 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:40:14 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ char			**split_cmd_and_redirect(char *split, t_redirect **redir_list,
 char			**split_by_pipe(char *line);
 bool			process_cmd(t_process **proc_list, char *split);
 char			**lexer_split_cmd(char *input, int i, int t, int err);
-static char		*get_plain_token(const char *s, int *i);
-static char		*get_quoted_token(const char *s, int *i, int *err);
-
+// char			**split_with_quotes(char *input, int i, int j, int start);
+char			*get_next_token(char *input, int *i, int *err);
+char			*get_quoted_token(const char *s, int *i, int *err);
+char			**split_with_quotes(char *s, int i, int j);
 //lexer -> [cmd]
 char			**parse_cmd(char **token, int i, int j, int cmd_count);
 t_process		*init_process(void);
@@ -82,20 +83,21 @@ void			parse_redirect(char **token, t_redirect **redir_list);
 t_redirect		*init_redirect(t_redirect_type type, char *value);
 void			add_redirect(t_redirect **redir_list, t_redirect *new_redir);
 char			**split_token_redirect(char **tokens);
-static int		redirect_op_len(const char *str);
-static int		count_tokens_after_split(char **tokens, int i, int count);
-static int		fill_split_token(char *token, char **res, int j);
-static int		count_tokens_after_split(char **tokens, int i, int count);
+bool			is_in_quote(char *token);
 
 //expand
 bool			expand_tokens(void);
 t_quote_type	check_quote_type(const char *str);
 char			*ft_strjoin_and_free(char *res, char *tmp);
-char			*expand_dollar(char *cmd, int *pos, t_env *env);
-char			*expand_variable(char *cmd, t_env *env);
+char			*expand_dollar(char *cmd, int *pos);
+char			*expand_variable(char *cmd);
+char			*parse_ansi_c_quoted(const char *cmd, int *i);
+char			*interpret_escapes(char *cmd, int i, int j);
 
 //unquote
-char			*unquote(char *cmd);
+bool			unquote(void);
+char			*unquote_all(char *input, int i, int j);
+
 //error
 bool			quote_pair_error(t_shell *shell, bool s_quote, bool d_quote);
 bool			token_syntax_error(t_shell *shell, char *token);

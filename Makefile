@@ -8,10 +8,10 @@ MKDIR			=	mkdir -p
 
 #------------[FLAGS]
 CFLAGS			= 	$(W_FLAGS)
-VFLAGS			=	--track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all
+VFLAGS			=	--track-fds=yes --trace-children=yes --leak-check=full
 DEBUG_FLAGS		= 	-g3
 RL_FLAGS		= 	-lreadline
-W_FLAGS			= 	#-Wall -Wextra -Werror
+W_FLAGS			= 	-Wall -Wextra -Werror
 
 #------------[PATH]
 OUTPUT_PATH 	=	output
@@ -41,7 +41,6 @@ EXIT_FILE		=	exit get_t
 PARSER			=	$(addprefix $(PARSER_PATH)/, $(addsuffix .c, $(PARSER_FILE)))
 PARSER_PATH		=	parser
 PARSER_FILE		=	lexer parser syntax utils error expand redirect cmd redirect2 expand2 split unquote
-
 EXIT			=	$(addprefix $(EXIT_PATH)/, $(addsuffix .c, $(EXIT_FILE)))
 EXIT_PATH		=	exit
 EXIT_FILE		=	exit get_t

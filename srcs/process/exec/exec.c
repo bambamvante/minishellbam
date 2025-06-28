@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:21:47 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:48:27 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:26:25 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*get_command_path(char **env)
 	return (env[i] + 5);
 }
 
-static void	trow_error(char **cmd, char **env)
+static void	throw_error(char **cmd, char **env)
 {
 	if (!access(cmd[0], X_OK))
 	{
@@ -75,7 +75,7 @@ void	exec(char **cmd, char **env)
 	path = get_command_path(env);
 	status = chech_eccess(&cmd, path);
 	if (!status)
-		trow_error(cmd, env);
+		throw_error(cmd, env);
 	execve(cmd[0], cmd, env);
-	trow_error(cmd, env);
+	throw_error(cmd, env);
 }

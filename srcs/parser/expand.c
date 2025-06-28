@@ -6,13 +6,13 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 17:17:39 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 02:55:01 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:09:47 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*expand_dollar(char *cmd, int *pos, t_env *env)
+char	*expand_dollar(char *cmd, int *pos)
 {
 	int		start;
 	int		i;
@@ -48,7 +48,7 @@ char	*expand_dollar(char *cmd, int *pos, t_env *env)
 	return (value);
 }
 
-char	*expand_variable(char *cmd, t_env *env)
+char	*expand_variable(char *cmd)
 {
 	char	*res;
 	int		i;
@@ -59,8 +59,10 @@ char	*expand_variable(char *cmd, t_env *env)
 	res = ft_strdup("");
 	while (cmd[i])
 	{
-		if (cmd[i] == '$')
-			tmp = expand_dollar(cmd, &i, env);
+		if (cmd[i] == '$' && (cmd[i + 1] == '\'' || cmd[i + 1] == '\"'))
+			tmp = parse_ansi_c_quoted(cmd, &i);
+		else if (cmd[i] == '$')
+			tmp = expand_dollar(cmd, &i);
 		else
 		{
 			start = i;
@@ -76,7 +78,6 @@ char	*expand_variable(char *cmd, t_env *env)
 char	*expand_one_token(char *cmd, t_quote_type type)
 {
 	int		len;
-	char	*no_double_quote;
 	char	*expanded;
 
 	if (!cmd)
@@ -85,7 +86,7 @@ char	*expand_one_token(char *cmd, t_quote_type type)
 	if (type == SINGLE_QUOTE)
 	{
 		if (len >= 2)
-			return (ft_strndup(cmd + 1, len - 2));
+			return (ft_strdup(cmd));
 		else
 			return (ft_strdup(""));
 	}
@@ -93,16 +94,14 @@ char	*expand_one_token(char *cmd, t_quote_type type)
 	{
 		if (len >= 2)
 		{
-			no_double_quote = ft_strndup(cmd + 1, len - 2);
-			expanded = expand_variable(no_double_quote, *get_t_env());
-			free(no_double_quote);
+			expanded = expand_variable(cmd);
 			return (expanded);
 		}
 		else
 			return (ft_strdup(""));
 	}
 	else
-		return (expand_variable(cmd, *get_t_env()));
+		return (expand_variable(cmd));
 }
 
 bool	expand_tokens(void)
@@ -130,3 +129,4 @@ bool	expand_tokens(void)
 	}
 	return (true);
 }
+

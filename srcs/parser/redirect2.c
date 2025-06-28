@@ -6,11 +6,22 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 03:44:40 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/26 17:43:41 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:41:10 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+bool	is_in_quote(char *token)
+{
+	if (!token)
+		return (false);
+	if ((token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
+		|| (token[0] == '"' && token[ft_strlen(token) - 1] == '"'))
+		return (true);
+	return (false);
+}
+
 
 static int	redirect_op_len(const char *str)
 {
@@ -83,7 +94,6 @@ char	**split_token_redirect(char **tokens)
 	int		j;
 	int		count;
 	char	**res;
-	char	*token;
 
 	i = 0;
 	j = 0;
@@ -92,7 +102,14 @@ char	**split_token_redirect(char **tokens)
 	if (!res)
 		return (NULL);
 	while (tokens[i])
-		j = fill_split_token(tokens[i++], res, j);
+	{
+		if (is_in_quote(tokens[i]))
+			res[j++] = ft_strdup(tokens[i]);
+		else
+			j = fill_split_token(tokens[i], res, j);
+		i++;
+	}
 	res[j] = NULL;
 	return (res);
 }
+

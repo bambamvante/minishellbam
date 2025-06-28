@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:06:42 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 03:34:46 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:58:14 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ so type will be only 2 type : CMD and PIPE
 
 */
 
+char	**split_cmd_and_redirect(char *split, t_redirect **redir_list,
+	char **tmp)
+{
+	char	**token;
+	char	**cmd;
+	int		cmd_count;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	cmd = NULL;
+	cmd_count = 0;
+	tmp = split_with_quotes(split, 0, 0);
+	if (!tmp)
+		return (NULL);
+	token = split_token_redirect(tmp);
+	free_split(tmp);
+	if (!token)
+		return (NULL);
+	parse_redirect(token, redir_list);
+	cmd = parse_cmd(token, i, j, cmd_count);
+	free_split(token);
+	return (cmd);
+}
+
 bool	process_cmd(t_process **proc_list, char *split)
 {
 	t_process	*proc;
@@ -49,9 +75,9 @@ bool	process_cmd(t_process **proc_list, char *split)
 
 bool	lexer(char *line, int i)
 {
-	char		*no_whitespaces;
 	char		**split;
 	t_process	**proc_list;
+	char		*trimmed;
 
 	proc_list = get_t_process();
 	split = ft_split(line, '|');
@@ -59,12 +85,15 @@ bool	lexer(char *line, int i)
 		return (false);
 	while (split[i])
 	{
-		if (!process_cmd(proc_list, split[i]))
+		trimmed = ft_strtrim(split[i], " \t\n");
+		if (!trimmed || !process_cmd(proc_list, trimmed))
 		{
+			free(trimmed);
 			free_split(split);
 			clear_t_process();
 			return (false);
 		}
+		free(trimmed);
 		i++;
 	}
 	free_split(split);

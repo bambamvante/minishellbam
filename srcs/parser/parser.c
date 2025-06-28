@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:35:55 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 03:38:23 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:05:42 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	parser(t_shell *shell)
 	if (!lexer(shell->line, i))
 		return (false);
 	if (!expand_tokens())
+		return (false);
+	if (!unquote())
 		return (false);
 	debug_process_list(*get_t_process());
 	return (true);
