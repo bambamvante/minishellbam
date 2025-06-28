@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 01:06:48 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/26 03:24:25 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:58:52 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	add_process(t_process **proc_list, t_process *new_proc)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new_proc;
-		printf("[ADD] appended cmd: %s\n", new_proc->cmd[0]);
 	}
 }
 

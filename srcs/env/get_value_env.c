@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:34:55 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:54 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:52:00 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*get_value(char *key)
 {
-	char	*value;
 	t_env	*env;
 
 	env = *get_t_env();

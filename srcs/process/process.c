@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:37:28 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:07:06 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:51:03 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	process(void)
 {
 	t_process	*proc;
 	int			all_proc;
-	int			exit_status;
 	pid_t		last_pid;
 
 	proc = *get_t_process();

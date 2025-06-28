@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 12:04:08 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/24 20:23:45 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:50:56 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ bool	quote_pair_error(t_shell *shell, bool s_quote, bool d_quote)
 
 bool	token_syntax_error(t_shell *shell, char *token)
 {
+	(void)shell;
 	ft_putstr_fd("bash: syntax error near unexpected token `", STDERR_FILENO);
 	if (token[0] == '\0')
 		ft_putstr_fd("newline", STDERR_FILENO);
@@ -35,6 +36,7 @@ bool	token_syntax_error(t_shell *shell, char *token)
 
 bool	unmatched_quote_error(t_shell *shell, char quote)
 {
+	(void)shell;
 	if (quote == '\'')
 		ft_putstr_fd("bash: syntax error: unmatched single quote\n",
 			STDERR_FILENO);

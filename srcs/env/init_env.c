@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 02:39:10 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 03:06:57 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:52:06 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static t_env	*get_node(char **env, int i)
 {
 	char	*key;
 	char	*value;
-	char	*temp_1;
 	t_env	*node;
 	int		j;
 

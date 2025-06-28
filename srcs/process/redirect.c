@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 17:11:21 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:07:11 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:51:36 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,8 @@ static void	fd_err(int fd_in, int fd_out, int status, t_redirect *re)
 
 void	find_fd(t_redirect *re, int *fd_in, int *fd_out)
 {
-	char	*name_in;
-	char	*name_out;
 	int		status;
-	int		fd;
-	int		temp;
 
-	name_in = NULL;
-	name_out = NULL;
 	status = 0;
 	*fd_out = 1;
 	*fd_in = 0;
