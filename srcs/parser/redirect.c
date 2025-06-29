@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 17:01:12 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/26 15:18:44 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:08:49 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_redirect_token(char *token)
 		return (false);
 	if (ft_strncmp(token, "<", 2) == 0 && token[1] == '\0')
 		return (true);
-	if (ft_strncmp(token, "<<", 3) == 0)
+	if (ft_strncmp(token, "<<", 3) == 0 && !is_in_quote(token))
 		return (true);
 	if (ft_strncmp(token, ">", 2) == 0 && token[1] == '\0')
 		return (true);
@@ -73,23 +73,3 @@ void	add_redirect(t_redirect **redir_list, t_redirect *new_redir)
 	}
 }
 
-void	parse_redirect(char **token, t_redirect **redir_list)
-{
-	t_redirect_type	type;
-	t_redirect		*new_redir;
-	int				i;
-
-	i = 0;
-	while (token[i])
-	{
-		if (is_redirect_token(token[i]))
-		{
-			type = get_redirect_type(token[i]);
-			new_redir = init_redirect(type, ft_strdup(token[i + 1]));
-			add_redirect(redir_list, new_redir);
-			i += 2;
-		}
-		else
-			i++;
-	}
-}

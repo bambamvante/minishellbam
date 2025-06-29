@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:07:19 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/29 00:50:28 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:24:00 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	minishell(t_shell *shell)
 		if (*shell->line)
 		{
 			add_history(shell->line);
-			parser(shell);
-			process();
+			if (parser(shell))
+				process();
 			clear_t_process();
 		}
 		free(shell->line);
@@ -51,8 +51,8 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_env(envp);
-	// signal(SIGQUIT, SIG_IGN);
-	// signal(SIGINT, signal_reset_prompt);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, signal_reset_prompt);
 	minishell(&shell);
 	clear_t_process();
 	clear_env();

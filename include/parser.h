@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:37:07 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/29 00:40:14 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:01:16 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,22 @@ bool			syntax_valid(t_shell *shell, char *input, int i);
 
 //lexer
 bool			lexer(char *line, int i);
+char			**split_by_pipe_respecting_quotes(char *line, int i, int j, 
+					int start);
 char			**split_cmd_and_redirect(char *split, t_redirect **redir_list,
 					char **tmp);
-char			**split_by_pipe(char *line);
 bool			process_cmd(t_process **proc_list, char *split);
 char			**lexer_split_cmd(char *input, int i, int t, int err);
-// char			**split_with_quotes(char *input, int i, int j, int start);
 char			*get_next_token(char *input, int *i, int *err);
 char			*get_quoted_token(const char *s, int *i, int *err);
 char			**split_with_quotes(char *s, int i, int j);
+
+//split_pipe
+char			**split_by_pipe_respecting_quotes(char *line, int i, int j,
+					int start);
+int				count_pipes_outside_quotes(char *line, int i, int count);
+
+
 //lexer -> [cmd]
 char			**parse_cmd(char **token, int i, int j, int cmd_count);
 t_process		*init_process(void);
@@ -91,8 +98,6 @@ t_quote_type	check_quote_type(const char *str);
 char			*ft_strjoin_and_free(char *res, char *tmp);
 char			*expand_dollar(char *cmd, int *pos);
 char			*expand_variable(char *cmd);
-char			*parse_ansi_c_quoted(const char *cmd, int *i);
-char			*interpret_escapes(char *cmd, int i, int j);
 
 //unquote
 bool			unquote(void);
@@ -108,7 +113,9 @@ char			*check_error_token(char *input, int pos, t_op_type error_type);
 bool			is_null(char *input);
 bool			is_quote(char c);
 bool			is_operator(char c);
-int				is_all_space(char *str);
+bool			is_operator_char(char c);
+bool			is_double_op(char c1, char c2);
+
 //debug
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 17:17:39 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/29 00:09:47 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:31:45 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*expand_dollar(char *cmd, int *pos)
 	int		i;
 	char	*key;
 	char	*value;
+	char	*raw_value;
 
 	start = *pos + 1;
 	i = start;
@@ -42,7 +43,12 @@ char	*expand_dollar(char *cmd, int *pos)
 	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_'))
 		i++;
 	key = ft_substr(cmd, start, i - start);
-	value = get_value(key);
+	raw_value = get_value(key);
+	if (!raw_value)
+		value = ft_strdup("");
+	else
+		value = ft_strdup(raw_value);
+	printf("key:[%s]\nvalue: [%s]\n", key, raw_value);
 	free(key);
 	*pos = i;
 	return (value);
@@ -59,9 +65,7 @@ char	*expand_variable(char *cmd)
 	res = ft_strdup("");
 	while (cmd[i])
 	{
-		if (cmd[i] == '$' && (cmd[i + 1] == '\'' || cmd[i + 1] == '\"'))
-			tmp = parse_ansi_c_quoted(cmd, &i);
-		else if (cmd[i] == '$')
+		if (cmd[i] == '$')
 			tmp = expand_dollar(cmd, &i);
 		else
 		{

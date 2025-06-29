@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 03:44:40 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/29 00:41:10 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 20:17:37 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ bool	is_in_quote(char *token)
 	return (false);
 }
 
-
 static int	redirect_op_len(const char *str)
 {
 	if (!str)
 		return (0);
-	if (strncmp(str, "<<", 2) == 0 || strncmp(str, ">>", 2) == 0)
+	if (ft_strncmp(str, "<<", 2) == 0 || ft_strncmp(str, ">>", 2) == 0)
 		return (2);
 	if (*str == '<' || *str == '>')
 		return (1);

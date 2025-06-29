@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 01:24:26 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:06:54 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:51:42 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	read_all_heredoc(t_process *proc)
 		re = proc->redirect;
 		while (re)
 		{
-			if (re->type == HERE_DOC)
+			if (re->type == HERE_DOC && !is_in_quote(re->value))
 				ft_heredoc(re);
 			re = re->next;
 		}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:29:04 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:55:08 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:01:38 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "builtin.h"
 
 int	len_arg(char **arg)
 {

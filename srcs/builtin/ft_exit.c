@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 01:41:26 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:53:26 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/03 13:05:17 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "builtin.h"
 
 static void	error(void)
 {

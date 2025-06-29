@@ -40,7 +40,7 @@ EXIT_FILE		=	exit get_t
 
 PARSER			=	$(addprefix $(PARSER_PATH)/, $(addsuffix .c, $(PARSER_FILE)))
 PARSER_PATH		=	parser
-PARSER_FILE		=	lexer parser syntax utils error expand redirect cmd redirect2 expand2 split unquote
+PARSER_FILE		=	lexer parser syntax utils error expand redirect cmd redirect2 expand2 split_redirect unquote split_pipe
 EXIT			=	$(addprefix $(EXIT_PATH)/, $(addsuffix .c, $(EXIT_FILE)))
 EXIT_PATH		=	exit
 EXIT_FILE		=	exit get_t

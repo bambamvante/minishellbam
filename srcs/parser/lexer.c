@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:06:42 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 23:58:14 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 20:22:24 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,27 @@ so type will be only 2 type : CMD and PIPE
 
 */
 
+void	parse_redirect(char **token, t_redirect **redir_list)
+{
+	t_redirect_type	type;
+	t_redirect		*new_redir;
+	int				i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (is_redirect_token(token[i]))
+		{
+			type = get_redirect_type(token[i]);
+			new_redir = init_redirect(type, ft_strdup(token[i + 1]));
+			add_redirect(redir_list, new_redir);
+			i += 2;
+		}
+		else
+			i++;
+	}
+}
+
 char	**split_cmd_and_redirect(char *split, t_redirect **redir_list,
 	char **tmp)
 {
@@ -45,7 +66,7 @@ char	**split_cmd_and_redirect(char *split, t_redirect **redir_list,
 	cmd_count = 0;
 	tmp = split_with_quotes(split, 0, 0);
 	if (!tmp)
-		return (NULL);
+		return (false);
 	token = split_token_redirect(tmp);
 	free_split(tmp);
 	if (!token)
@@ -64,14 +85,15 @@ bool	process_cmd(t_process **proc_list, char *split)
 	if (!proc)
 		return (false);
 	proc->cmd = split_cmd_and_redirect(split, &proc->redirect, NULL);
-	if (!proc->cmd)
+	if (!proc->cmd || !proc->cmd[0])
 	{
-		free(proc);
+		clear_t_process();
 		return (false);
 	}
 	add_process(proc_list, proc);
 	return (true);
 }
+
 
 bool	lexer(char *line, int i)
 {
@@ -80,7 +102,7 @@ bool	lexer(char *line, int i)
 	char		*trimmed;
 
 	proc_list = get_t_process();
-	split = ft_split(line, '|');
+	split = split_by_pipe_respecting_quotes(line, 0, 0, 0);
 	if (!split)
 		return (false);
 	while (split[i])

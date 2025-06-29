@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 12:00:11 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/25 16:53:32 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:26:06 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ bool	is_quote(char c)
 bool	is_operator(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
+}
+
+bool	is_operator_char(char c)
+{
+	return (c == '|' || c == '&' || c == ';');
+}
+
+bool	is_double_op(char c1, char c2)
+{
+	return ((c1 == '|' && c2 == '|') || (c1 == '&' && c2 == '&'));
 }

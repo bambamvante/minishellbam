@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:22:21 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/26 02:53:17 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:55:11 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "builtin.h"
+#include "exit.h"
 
 static void	set_old_pwd(char *thispath)
 {

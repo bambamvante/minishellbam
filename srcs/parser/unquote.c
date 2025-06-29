@@ -6,7 +6,7 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 01:26:46 by arphueng          #+#    #+#             */
-/*   Updated: 2025/06/28 21:05:17 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:32:18 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ char	*unquote_all(char *input, int i, int j)
 
 bool	unquote(void)
 {
-	t_process		*proc;
-	char			**cmd;
-	int				i;
-	t_quote_type	type;
-	char			*unquote;
+	t_process	*proc;
+	char		**cmd;
+	int			i;
+	char		*tmp;
 
 	proc = *get_t_process();
 	while (proc)
@@ -55,12 +54,11 @@ bool	unquote(void)
 		i = 0;
 		while (cmd && cmd[i])
 		{
-			type = check_quote_type(cmd[i]);
-			if (type == SINGLE_QUOTE || type == DOUBLE_QUOTE)
+			if (ft_strchr(cmd[i], '\'') || ft_strchr(cmd[i], '"'))
 			{
-				unquote = unquote_all(cmd[i], 0, 0);
+				tmp = unquote_all(cmd[i], 0, 0);
 				free(cmd[i]);
-				cmd[i] = unquote;
+				cmd[i] = tmp;
 			}
 			i++;
 		}
@@ -68,4 +66,5 @@ bool	unquote(void)
 	}
 	return (true);
 }
+
 

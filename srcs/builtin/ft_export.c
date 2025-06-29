@@ -6,79 +6,74 @@
 /*   By: arphueng <arphueng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 05:04:28 by knakto            #+#    #+#             */
-/*   Updated: 2025/06/28 02:19:19 by arphueng         ###   ########.fr       */
+/*   Updated: 2025/06/29 20:50:06 by arphueng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "builtin.h"
+#include "exit.h"
 
 static void	check_before_add_env(char *name, char *value)
 {
 	int		i;
 
-	if (!name || !name[0])
-	{
-		pnf_fd(2, "bash: export: `%s': not a valid identifier\n", name);
-		*get_code() = 1;
-		return ;
-	}
-	if (!(ft_isalpha(name[0]) || name[0] == '_'))
-	{
-		pnf_fd(2, "bash: export: `%s': not a valid identifier\n", name);
-		*get_code() = 1;
-		return ;
-	}
-	i = 1;
-	while (name[i])
-	{
-		if (!(ft_isalnum(name[i]) || name[i] == '_'))
-		{
-			pnf_fd(2, "bash: export: `%s': not a valid identifier\n", name);
-			*get_code() = 1;
-			return ;
-		}
+	i = 0;
+	while (name[i] && (ft_isalpha(name[0]) || name[0] == '_') \
+&& (ft_isalpha(name[i]) || ft_isalnum(name[i]) || name[0] == '_'))
 		i++;
+	if (!name[i])
+		add_env(name, value);
+	else
+	{
+		pnf_fd(2, "bash: export: `%s': not a valid identifier\n", name);
+		*get_code() = 1;
 	}
-	add_env(name, value);
 }
 
-
-static bool	check(char *arg)
+static bool	check(char **arg, int i)
 {
-	char	*equal_sign;
+	char	*temp;
 
-	equal_sign = ft_strchr(arg, '=');
-	if (equal_sign && (equal_sign != arg))
+	if (ft_strchr(arg[i], '=') != NULL && ft_strlen(arg[i]) >= 2)
+	{
+		temp = ft_strtrim(arg[i], "=");
+		if (!*temp)
+		{
+			free(temp);
+			return (false);
+		}
 		return (true);
+	}
 	return (false);
 }
-
 
 void	set_export(char **arg)
 {
 	int		i;
-	char	*equal_pos;
-	char	*name;
-	char	*value;
+	char	**temp;
+	char	*sub;
 
 	i = 1;
 	while (arg[i])
 	{
-		if (check(arg[i]))
+		if (check(arg, i))
 		{
-			equal_pos = ft_strchr(arg[i], '=');
-			name = ft_substr(arg[i], 0, equal_pos - arg[i]);
-			value = ft_strdup(equal_pos + 1);
-			check_before_add_env(name, value);
-			free(name);
-			free(value);
+			temp = ft_split(arg[i], '=');
+			if (ft_strchr(temp[0], '=') != NULL)
+			{
+				sub = ft_substr(temp[0], 0, ft_strlen(arg[i]) - 1);
+				check_before_add_env(sub, "");
+				free(sub);
+			}
+			else
+				check_before_add_env(temp[0], temp[1]);
+			free_split(temp);
 		}
 		else
 			check_before_add_env(arg[i], NULL);
 		i++;
 	}
 }
-
 
 void	ft_export(char **arg)
 {
